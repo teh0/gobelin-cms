@@ -1,0 +1,10 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block content %}
+    {%  include 'partials/visitor/header.html.twig' %}
+    <div class="visitor-container">
+        {% block visitor_content %}
+
+        {% endblock %}
+    </div>
+{% endblock %}

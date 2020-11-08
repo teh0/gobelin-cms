@@ -2,7 +2,7 @@
 ### Register / Connection page
 Page to login and register our admin user
 
-### Homepage ('{domain-name}/admin/')
+### Homepage ('{domain-name}/admin')
 * Created page number
 * Category page number
 * Charts **(v2)**
@@ -18,7 +18,8 @@ Page to login and register our admin user
 * User link
 
 ### Managers (post | category | media | user)
-* Home ('{domain-name}/admin/pages/')
+* Home ('{domain-name}/admin/{entity}/')
+* Read Page form ('{domain-name}/admin/{entity}/{id}')
 * Create Page form ('{domain-name}/admin/{entity}/create')
 * Update Page form ('{domain-name}/admin/{entity}/update/{id}')
 * Delete Page form ('{domain-name}/admin/{entity}/delete/{id}')

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="s">
+    </head>
+    <body>
+    <!-- SITE CONTAINER -->
+    <div data-namespace="{% block namespace %}{% endblock %}" class="site-container">
+        {% block content %}{% endblock %}
+    </div>
+    <!-- JS -->
+    <script src=""></script>
+    </body>
+</html>
