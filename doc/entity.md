@@ -17,6 +17,7 @@
 # Category
 * name (string)
 * slug (string)
+* icon (string)
 
 # Tag
 * name (string)
