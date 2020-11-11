@@ -1,10 +1,17 @@
 <?php
 
-use App\Controller\admin\AdminController;
-use App\Controller\visitor\VisitorController;
+use App\Controller\Admin\AdminController;
+use App\Controller\Security\SecurityController;
+use App\Controller\Visitor\VisitorController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return function (RoutingConfigurator $router) {
+    // SECURITY
+    //--- LOGIN
+    $router->add('login', '/login')
+        ->controller([SecurityController::class, 'login'])
+        ->methods(['GET', 'POST']);
+
     // ADMIN
     //--- HOME
     $router->add('admin.home', 'admin/')

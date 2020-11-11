@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller\visitor;
+namespace App\Controller\Visitor;
 
 
 use App\Controller\BaseController;
