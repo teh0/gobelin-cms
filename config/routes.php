@@ -11,6 +11,8 @@ return function (RoutingConfigurator $router) {
     $router->add('login', '/login')
         ->controller([SecurityController::class, 'login'])
         ->methods(['GET', 'POST']);
+    //--- LOGOUT
+    $router->add('logout', '/logout');
 
     // ADMIN
     //--- HOME
