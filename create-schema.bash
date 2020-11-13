@@ -1,3 +1,3 @@
 #!/bin/bash
 
-bin/console doctrine:schema:create
+bin/console doctrine:schema:update --force
