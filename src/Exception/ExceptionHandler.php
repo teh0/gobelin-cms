@@ -5,6 +5,7 @@ namespace App\Exception;
 
 
 use App\Utils\Constants\Route;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ExceptionHandler
@@ -52,9 +53,14 @@ class ExceptionHandler
     private function rules(): array
     {
         return [
-            NotFoundHttpException::class => [
+            NotFoundHttpException::class => [ // @TODO Change to 404 page when it will be ready
                 'route_url' => '/',
                 'route_name' => Route::HOME_VISITOR
+            ],
+
+            AccessDeniedHttpException::class => [
+                'route_url' => '/login',
+                'route_name' => Route::LOGIN
             ],
 
             'default' => [
