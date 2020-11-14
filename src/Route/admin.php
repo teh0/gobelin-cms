@@ -25,7 +25,7 @@ return function (RoutingConfigurator $router) {
     $router->add('admin.manager.tag.home', 'admin/tag')
         ->controller([TagManager::class, 'index']);
 
-    /* Tag */
+    /* User */
     $router->add('admin.manager.user.home', 'admin/user')
         ->controller([UserManager::class, 'index']);
 };
