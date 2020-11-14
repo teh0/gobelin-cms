@@ -1,12 +1,33 @@
 {% set menudata = ["Home", "page","Category","Tag","User"] %}
-
+{% set ekip = [
+    {
+        'name': 'Home',
+        'url': '/admin'
+    },
+    {
+        'name': 'Page',
+        'url': '/admin/page'
+    },
+    {
+        'name': 'Category',
+        'url': '/admin/category'
+    },
+    {
+        'name': 'Tag',
+        'url': '/admin//tag'
+    },
+    {
+        'name': 'User',
+        'url': '/admin//user'
+    },
+] %}
 <aside class="col-3 col-md-2 p-0 bg-dark">
     <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start">
         <div class="collapse navbar-collapse">
             <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-                {% for item in menudata %}
+                {% for item in ekip %}
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="{{ item }}">{{ item }}</a>
+                    <a class="nav-link pl-0" href="{{ item.url }}">{{ item.name }}</a>
                 </li>
                 {% endfor %}
 

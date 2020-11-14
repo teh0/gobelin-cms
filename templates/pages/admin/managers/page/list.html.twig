@@ -1,1 +1,15 @@
-{% extends 'layouts/admin/base-admin.html.twig' %}
+{#{% extends 'pages/admin/home.html.twig' %}#}
+{#{% block admin_content %}#}
+{#    <h1>Welcome home admin fdp !!!!</h1>#}
+    {% extends 'layouts/admin/managers/manager-list.html.twig' %}
+{% block admin_content %}
+    <h1>Welcome home admin manager list override on page template  !!!!</h1>
+
+    <span> additional content </span>
+{% endblock %}
+
+{#{% endblock %}#}
+{#<span> ekip a fon</span>#}
+{#<h1> ok</h1>#}
+{#    <div> crfedsfc</div>#}
+{#{% block admin_content %}#}
