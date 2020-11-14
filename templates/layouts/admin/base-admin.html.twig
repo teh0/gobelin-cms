@@ -2,11 +2,13 @@
 
 {% block content %}
     {%  include 'partials/admin/header.html.twig' %}
-    {%  include 'partials/admin/menu.html.twig' %}
-    <div class="admin-container">
-        {% block admin_content %}
+    <div class="admin-wrapper">
+        {%  include 'partials/admin/menu.html.twig' %}
+        <div class="admin-container">
+            {% block admin_content %}
 
 
-        {% endblock %}
+            {% endblock %}
+        </div>
     </div>
 {% endblock %}

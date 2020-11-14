@@ -12,7 +12,7 @@ class PageManager extends BaseController
 {
     public function index(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/page/list.html');
+        return $this->render(Path::ADMIN_PAGES . '/managers/page/list.html.twig');
     }
 
     public function create(): Response
