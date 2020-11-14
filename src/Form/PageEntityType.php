@@ -56,8 +56,9 @@ class PageEntityType extends AbstractType
 
     private function buildThumbnail(FormBuilderInterface $builder): PageEntityType
     {
-        $builder->add('thumbnail', FileType::class, [
-            'data_class' => null
+        $builder->add('thumbnailFile', FileType::class, [
+            'data_class' => null,
+            'required'   => false
         ]);
 
         return $this;

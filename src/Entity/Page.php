@@ -7,9 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=PageRepository::class)
+ * @Vich\Uploadable
  */
 class Page
 {
@@ -54,9 +58,16 @@ class Page
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $thumbnail = 'default-avatar.svg';
+    private $thumbnail = 'default-thumbnail.svg';
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="pages_thumbnails", fileNameProperty="thumbnail")
+     */
+    private $thumbnailFile;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="pages")
@@ -162,7 +173,7 @@ class Page
         return $this->thumbnail;
     }
 
-    public function setThumbnail(string $thumbnail): self
+    public function setThumbnail(?string $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
 
@@ -227,5 +238,29 @@ class Page
         $this->tags->removeElement($tag);
 
         return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getThumbnailFile(): ?File
+    {
+        return $this->thumbnailFile;
+    }
+
+    /**
+     * @param File|null $thumbnailFile
+     *
+     * @throws \Exception
+     */
+    public function setThumbnailFile(?File $thumbnailFile): void
+    {
+        $this->thumbnailFile = $thumbnailFile;
+
+        if (null !== $this->thumbnailFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 }
