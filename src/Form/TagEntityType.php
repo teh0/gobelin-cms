@@ -14,9 +14,9 @@ class TagEntityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name', TextType::class)
-            ->add('color', ColorType::class)
+        $this
+            ->buildName($builder)
+            ->buildColor($builder)
         ;
     }
 
@@ -25,5 +25,17 @@ class TagEntityType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Tag::class,
         ]);
+    }
+
+    private function buildName(FormBuilderInterface $builder): TagEntityType
+    {
+        $builder->add('name', TextType::class);
+        return $this;
+    }
+
+    private function buildColor(FormBuilderInterface $builder): TagEntityType
+    {
+        $builder->add('color', ColorType::class);
+        return $this;
     }
 }

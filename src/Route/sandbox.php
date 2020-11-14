@@ -8,6 +8,6 @@ return function (RoutingConfigurator $router) {
 
         $router->add('sandbox', '/sandbox')
             ->controller([SandboxController::class, 'index'])
-            ->methods(['GET']);
+            ->methods(['GET', 'POST']);
     }
 };
