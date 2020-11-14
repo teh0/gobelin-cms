@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Page;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityRepository;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -49,7 +50,7 @@ class PageEntityType extends AbstractType
 
     private function buildContent(FormBuilderInterface $builder): PageEntityType
     {
-        $builder->add('content', TextareaType::class);
+        $builder->add('content', CKEditorType::class);
         return $this;
     }
 
