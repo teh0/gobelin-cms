@@ -6,4 +6,5 @@ return [
     require $ROUTE_FOLDER . '/visitor.php',
     require $ROUTE_FOLDER . '/admin.php',
     require $ROUTE_FOLDER . '/auth.php',
+    require $ROUTE_FOLDER . '/sandbox.php'
 ];

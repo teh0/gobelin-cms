@@ -10,4 +10,5 @@ class Path
     const SECURITY_PAGES = 'pages/security';
     const EMAIL_PATH = 'mails';
     const ADMIN_PAGES = 'pages/admin';
+    const SANDBOX_PAGES = 'pages/sandbox';
 }
