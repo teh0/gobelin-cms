@@ -18,21 +18,13 @@ class PageEntityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('title', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('content')
-            ->add('thumbnail', FileType::class)
-            ->add('categories', EntityType::class, [
-                'class'         => Category::class,
-                'query_builder' => $this->getQueryBuilderCategoryEntityType(),
-                'choice_label'  => 'Categories'
-            ])
-            ->add('tags', EntityType::class, [
-                'class' => Tag::class,
-                'query_builder' => $this->getQueryBuilderTagEntityType(),
-                'choice_label' => 'Tags'
-            ]);
+        $this
+            ->buildTitle($builder)
+            ->buildDescription($builder)
+            ->buildContent($builder)
+            ->buildThumbnail($builder)
+            ->buildCategories($builder)
+            ->buildCategories($builder)
         ;
     }
 
@@ -43,19 +35,72 @@ class PageEntityType extends AbstractType
         ]);
     }
 
-    private function getQueryBuilderCategoryEntityType(): \Closure
+    private function buildTitle(FormBuilderInterface $builder): PageEntityType
     {
-        return function (EntityRepository $entityRepository) {
-            return $entityRepository->createQueryBuilder('c')
-                ->orderBy('c.name', 'ASC');
-        };
+        $builder->add('title', TextType::class);
+        return $this;
     }
 
-    private function getQueryBuilderTagEntityType(): \Closure
+    private function buildDescription(FormBuilderInterface $builder): PageEntityType
     {
-        return function (EntityRepository $entityRepository) {
-            return $entityRepository->createQueryBuilder('t')
-                ->orderBy('t.name', 'ASC');
-        };
+        $builder->add('description', TextareaType::class);
+        return $this;
     }
+
+    private function buildContent(FormBuilderInterface $builder): PageEntityType
+    {
+        $builder->add('content', TextareaType::class);
+        return $this;
+    }
+
+    private function buildThumbnail(FormBuilderInterface $builder): PageEntityType
+    {
+        $builder->add('thumbnail', FileType::class, [
+            'data_class' => null
+        ]);
+
+        return $this;
+    }
+
+    private function buildCategories(FormBuilderInterface $builder): PageEntityType
+    {
+        $builder->add('categories', EntityType::class, [
+            'class'         => Category::class,
+            'query_builder' => function (EntityRepository $entityRepository) {
+                return $entityRepository->createQueryBuilder('c')
+                    ->orderBy('c.name', 'ASC');
+            },
+            'label'  => 'Categories',
+            'choice_label' => function(Category $category) {
+                return $category->getName();
+            },
+            'multiple'      => true,
+            'choice_value'  => function(?Category $category) {
+                return $category ? $category->getName() : '';
+            },
+            'expanded' => true
+        ]);
+
+        return $this;
+    }
+
+    private function buildTags(FormBuilderInterface $builder): PageEntityType
+    {
+        $builder->add('tags', EntityType::class, [
+            'class'         => Tag::class,
+            'query_builder' => function (EntityRepository $entityRepository) {
+                return $entityRepository->createQueryBuilder('t')
+                    ->orderBy('t.name', 'ASC');
+            },
+            'label'  => 'Tags',
+            'choice_label' => function(Tag $tag) {
+                return $tag->getName();
+            },
+            'multiple'      => true,
+            'expanded' => true
+        ]);
+
+        return $this;
+    }
+
 }

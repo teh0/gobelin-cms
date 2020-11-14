@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,26 +16,12 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name', TextType::class)
-            ->add('pseudo', TextType::class)
-            ->add('email')
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+
+        $this
+            ->buildName($builder)
+            ->buildPseudo($builder)
+            ->buildEmail($builder)
+            ->buildPlainPassword($builder)
         ;
     }
 
@@ -43,5 +30,44 @@ class RegistrationFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    private function buildName(FormBuilderInterface $builder): RegistrationFormType
+    {
+        $builder->add('name', TextType::class);
+        return $this;
+    }
+
+    private function buildPseudo(FormBuilderInterface $builder): RegistrationFormType
+    {
+        $builder->add('pseudo', TextType::class);
+        return $this;
+    }
+
+    private function buildEmail(FormBuilderInterface $builder): RegistrationFormType
+    {
+        $builder->add('email', EmailType::class);
+        return $this;
+    }
+
+    private function buildPlainPassword(FormBuilderInterface $builder): RegistrationFormType
+    {
+        $builder->add('plainPassword', PasswordType::class, [
+            // instead of being set onto the object directly,
+            // this is read and encoded in the controller
+            'mapped' => false,
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Please enter a password',
+                ]),
+                new Length([
+                    'min' => 6,
+                    'minMessage' => 'Your password should be at least {{ limit }} characters',
+                    // max length allowed by Symfony for security reasons
+                    'max' => 4096,
+                ]),
+            ],
+        ]);
+        return $this;
     }
 }

@@ -4,9 +4,19 @@
 namespace App\Controller;
 
 
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 
 class BaseController extends AbstractController
 {
-    const ADMIN_PATH_VIEW = 'pages/admin';
+    protected function validateAndSubmittedForm(FormInterface $form)
+    {
+        return $form->isSubmitted() && $form->isValid();
+    }
+
+    protected function getEntityManager(): ObjectManager
+    {
+        return $this->getDoctrine()->getManager();
+    }
 }
