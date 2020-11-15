@@ -1,0 +1,21 @@
+{% set categorydata = [
+    {'title': 'coronavirus','id': '1'},
+    {'title': 'cours de la bourse','id': '2'},
+    {'title': 'football','id': '3'},
+    {'title': 'judo','id': '4'},
+    {'title': 'musique','id': '5'},
+] %}
+
+{% extends 'layouts/visitor/base-visitor.html.twig' %}
+
+{% block visitor_content %}
+List of Categories :
+<ul>
+{#            @need --> page id / page title#}
+    {% for category in categorydata %}
+        <li class="col-4">
+            <a href="category/{{ category.id }}"><span >{{ category.title }}</span></a>
+        </li>
+    {% endfor %}
+</ul>
+{%endblock %}

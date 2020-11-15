@@ -12,4 +12,15 @@ class VisitorController extends BaseController
     {
         return $this->render('pages/visitor/home.html.twig');
     }
+    // list of all posts
+    public function posts()
+    {
+        return $this->render('pages/visitor/post/posts.html.twig');
+    }
+
+    // list of all categories
+    public function categories()
+    {
+        return $this->render('pages/visitor/category/categories.html.twig');
+    }
 }
