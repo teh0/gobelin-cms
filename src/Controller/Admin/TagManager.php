@@ -19,12 +19,17 @@ class TagManager extends BaseController
     }
     public function create(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/tag/create.html');
+        return $this->render(Path::ADMIN_PAGES . '/managers/tag/create.html.twig');
+    }
+
+    public function read(): Response
+    {
+        return $this->render(Path::ADMIN_PAGES . '/managers/tag/read.html.twig');
     }
 
     public function update(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/tag/update.html');
+        return $this->render(Path::ADMIN_PAGES . '/managers/tag/update.html.twig');
     }
 
     public function delete()

@@ -1,6 +1,27 @@
+{# TODO clean PATH #}
+{% set userdata = [
+    {'name': 'nael','id': '1'},
+    {'name': 'theo','id': '2'},
+    {'name': 'football','id': '3'},
+    {'name': 'judo','id': '4'},
+    {'name': 'musique','id': '5'},
+] %}
+
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
 {% block admin_content %}
-    <h1>user list section  !!</h1>
+    <h1>Liste des USERS </h1>
 
-    <span> additional content </span>
+    <span><a href="user/create/12">Create</a></span>
+
+    <ul>
+        {#        @need --> page id / page name #}
+        {% for user in userdata %}
+            <li class="col-4">
+                <span>{{ user.name }}</span>
+                <a href="user/update/{{ user.id }}">Update</a>
+                <a href="user/{{ user.id }}">Read</a>
+                <a href="user/delete/{{ user.id }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

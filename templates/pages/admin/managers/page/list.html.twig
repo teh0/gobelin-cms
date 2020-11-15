@@ -1,6 +1,27 @@
+{# TODO clean PATH #}
+{% set pagedata = [
+    {'title': 'coronavirus','id': '1'},
+    {'title': 'cours de la bourse','id': '2'},
+    {'title': 'football','id': '3'},
+    {'title': 'judo','id': '4'},
+    {'title': 'musique','id': '5'},
+] %}
+
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
 {% block admin_content %}
-    <h1>Welcome home admin manager list override on page template  !!!!</h1>
+    <h1>Liste des pages </h1>
 
-    <span> additional content </span>
+    <span><a href="page/create/12">Create</a></span>
+
+    <ul>
+{#        @need --> page id / page title #}
+        {% for page in pagedata %}
+            <li class="col-4">
+                <span>{{ page.title }}</span>
+                <a href="page/update/{{ page.id }}">Update</a>
+                <a href="page/{{ page.id }}">Read</a>
+                <a href="page/delete/{{ page.id }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

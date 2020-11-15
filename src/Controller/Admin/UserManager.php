@@ -17,14 +17,20 @@ class UserManager extends BaseController
     {
         return $this->render(Path::ADMIN_PAGES . '/managers/user/list.html.twig');
     }
+
     public function create(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/user/create.html');
+        return $this->render(Path::ADMIN_PAGES . '/managers/user/create.html.twig');
+    }
+
+    public function read(): Response
+    {
+        return $this->render(Path::ADMIN_PAGES . '/managers/user/read.html.twig');
     }
 
     public function update(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/user/update.html');
+        return $this->render(Path::ADMIN_PAGES . '/managers/user/update.html.twig');
     }
 
     public function delete()

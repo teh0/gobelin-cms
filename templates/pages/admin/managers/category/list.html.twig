@@ -1,6 +1,27 @@
+{# TODO clean PATH #}
+{% set categorydata = [
+    {'title': 'coronavirus','id': '1'},
+    {'title': 'cours de la bourse','id': '2'},
+    {'title': 'football','id': '3'},
+    {'title': 'judo','id': '4'},
+    {'title': 'musique','id': '5'},
+] %}
+
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
 {% block admin_content %}
-    <h1>Category  !!!!</h1>
+    <h1>Liste des Categories </h1>
 
-    <span> additional content </span>
+    <span><a href="category/create/12">Create</a></span>
+
+    <ul>
+        {#        @need --> page id / page title #}
+        {% for category in categorydata %}
+            <li class="col-4">
+                <span>{{ category.title }}</span>
+                <a href="category/update/{{ category.id }}">Update</a>
+                <a href="category/{{ category.id }}">Read</a>
+                <a href="category/delete/{{ category.id }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
