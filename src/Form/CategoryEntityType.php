@@ -34,8 +34,9 @@ class CategoryEntityType extends AbstractType
 
     private function buildIcon(FormBuilderInterface $builder): CategoryEntityType
     {
-        $builder->add('icon', FileType::class, [
-            'data_class' => null
+        $builder->add('iconFile', FileType::class, [
+            'data_class' => null,
+            'required'   => false
         ]);
         return $this;
     }
