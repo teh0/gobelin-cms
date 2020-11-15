@@ -10,6 +10,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +26,8 @@ class PageEntityType extends AbstractType
             ->buildContent($builder)
             ->buildThumbnail($builder)
             ->buildCategories($builder)
-            ->buildCategories($builder)
+            ->buildTags($builder)
+            ->builSubmitButton($builder)
         ;
     }
 
@@ -80,7 +82,7 @@ class PageEntityType extends AbstractType
             'choice_value'  => function(?Category $category) {
                 return $category ? $category->getName() : '';
             },
-            'expanded' => true
+            'expanded' => false
         ]);
 
         return $this;
@@ -99,8 +101,15 @@ class PageEntityType extends AbstractType
                 return $tag->getName();
             },
             'multiple'      => true,
-            'expanded' => true
+            'expanded' => false
         ]);
+
+        return $this;
+    }
+
+    private function builSubmitButton(FormBuilderInterface $builder): PageEntityType
+    {
+        $builder->add('Submit', SubmitType::class);
 
         return $this;
     }

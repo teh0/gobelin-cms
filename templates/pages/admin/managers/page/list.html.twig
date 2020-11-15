@@ -1,12 +1,3 @@
-{# TODO clean PATH #}
-{% set pagedata = [
-    {'title': 'coronavirus','id': '1'},
-    {'title': 'cours de la bourse','id': '2'},
-    {'title': 'football','id': '3'},
-    {'title': 'judo','id': '4'},
-    {'title': 'musique','id': '5'},
-] %}
-
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
 {% block admin_content %}
     <h1>Liste des pages </h1>
@@ -28,13 +19,13 @@
                 <td>{{ page.title }}</td>
                 <td>{{ page.author.name }}</td>
                 <td>
-                    <a href="{{ path('admin.manager.page.read', {'id': page.id}) }}">
+                    <a href="{{ path('admin.manager.pages.read', {'id': page.id}) }}">
                         <button type="button" class="btn btn-primary">Voir</button>
                     </a>
-                    <a href="{{ path('admin.manager.page.update', {'id': page.id}) }}">
+                    <a href="{{ path('admin.manager.pages.update', {'id': page.id}) }}">
                         <button type="button" class="btn btn-warning">Modifier</button>
                     </a>
-                    <a href="">
+                    <a href="{{ path('admin.manager.pages.delete', {'id': page.id}) }}">
                         <button type="button" class="btn btn-danger">Supprimer</button>
                     </a>
                 </td>

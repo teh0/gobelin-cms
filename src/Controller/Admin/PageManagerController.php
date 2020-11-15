@@ -6,8 +6,10 @@ namespace App\Controller\Admin;
 
 use App\Controller\BaseController;
 use App\Entity\Page;
+use App\Form\PageEntityType;
 use App\Repository\PageRepository;
 use App\Utils\Constants\Path;
+use App\Utils\Constants\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,13 +36,26 @@ class PageManagerController extends BaseController
             'page' => $page
         ]);
     }
-    public function update(): Response
+    public function update(Request $request, Page $page): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/page/update.html.twig');
+        $form = $this->createForm(PageEntityType::class, $page);
+        $form->handleRequest($request);
+
+        if ($this->validateAndSubmittedForm($form)) {
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($page);
+            $entityManager->flush();
+        }
+
+        return $this->render(Path::ADMIN_PAGES . '/managers/page/update.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
-    public function delete()
+    public function delete(Page $page)
     {
-
+        $this->getEntityManager()->remove($page);
+        $this->getEntityManager()->flush();
+        return $this->redirectToRoute('admin.manager.pages.home');
     }
 }
