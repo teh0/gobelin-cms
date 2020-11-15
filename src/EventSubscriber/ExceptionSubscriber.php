@@ -37,6 +37,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
      */
     public function onKernelException(ExceptionEvent $exceptionEvent)
     {
+        //dd($exceptionEvent->getThrowable());
         /* Call custom exception handler */
         $redirectUrl = $this->exceptionHandler->getUrlRedirection($exceptionEvent->getThrowable());
         $exceptionEvent->setResponse(new RedirectResponse($redirectUrl));

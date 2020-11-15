@@ -12,16 +12,37 @@
     <h1>Liste des pages </h1>
 
     <span><a href="page/create/12">Create</a></span>
-
-    <ul>
-{#        @need --> page id / page title #}
-        {% for page in pagedata %}
-            <li class="col-4">
-                <span>{{ page.title }}</span>
-                <a href="page/update/{{ page.id }}">Update</a>
-                <a href="page/{{ page.id }}">Read</a>
-                <a href="page/delete/{{ page.id }}">Delete</a>
-            </li>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#id</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for page in pages %}
+            <tr>
+                <th scope="row">{{ page.id }}</th>
+                <td>{{ page.title }}</td>
+                <td>{{ page.author.name }}</td>
+                <td>
+                    <a href="{{ path('admin.manager.page.read', {'id': page.id}) }}">
+                        <button type="button" class="btn btn-primary">Voir</button>
+                    </a>
+                    <a href="{{ path('admin.manager.page.update', {'id': page.id}) }}">
+                        <button type="button" class="btn btn-warning">Modifier</button>
+                    </a>
+                    <a href="">
+                        <button type="button" class="btn btn-danger">Supprimer</button>
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(pages) }}
 {% endblock %}

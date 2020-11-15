@@ -25,4 +25,9 @@ class PageRepository extends BaseRepository
     {
         return 'p';
     }
+
+    public function getTableName(): string
+    {
+        return 'page';
+    }
 }

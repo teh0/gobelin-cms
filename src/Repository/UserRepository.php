@@ -40,4 +40,9 @@ class UserRepository extends BaseRepository implements PasswordUpgraderInterface
     {
         return 'u';
     }
+
+    public function getTableName(): string
+    {
+        return 'user';
+    }
 }

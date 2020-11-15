@@ -23,4 +23,9 @@ class CategoryRepository extends BaseRepository
     {
         return 'c';
     }
+
+    public function getTableName(): string
+    {
+        return 'category';
+    }
 }

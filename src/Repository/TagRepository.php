@@ -23,4 +23,9 @@ class TagRepository extends BaseRepository
     {
         return 't';
     }
+
+    public function getTableName(): string
+    {
+        return 'tag';
+    }
 }

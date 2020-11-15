@@ -8,7 +8,7 @@ use App\Controller\BaseController;
 use App\Utils\Constants\Path;
 use Symfony\Component\HttpFoundation\Response;
 
-class CategoryManager extends BaseController
+class CategoryManagerController extends BaseController
 {
     public function index(): Response
     {
