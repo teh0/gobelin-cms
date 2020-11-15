@@ -12,16 +12,17 @@
 {% block admin_content %}
 
 {#    TODO --> add UI and make better structure#}
-{#    @need --> page number / category number#}
 {#    @need --> last articles --> title & image path#}
-    <h1>Nombre de pages  : {{ pagenumber}} </h1>
-    <h1>Nombre de categories  : {{ categorynumber}} </h1>
+    <h1>Nombre de pages  : {{ countPages }} </h1>
+    <h1>Nombre de categories  : {{ countCategories }} </h1>
     <span> Derniers articles posté:</span>
     <ul class="articlelist">
-        {% for article in articles %}
+        {% for lastPage in lastPages %}
         <li class="articlelist-item col-4">
-            <span class="articlelist-item--title">{{ article.title }}</span>
-            <div class="articlelist-item--image"></div>
+            <span class="articlelist-item--title">{{ lastPage.title }}</span>
+            <div class="articlelist-item--image">
+                <img src="{{ vich_uploader_asset(lastPage, 'thumbnailFile') }}" alt="">
+            </div>
         </li>
         {% endfor %}
     </ul>

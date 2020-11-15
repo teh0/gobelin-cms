@@ -6,7 +6,6 @@ use App\Entity\Page;
 use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use phpDocumentor\Reflection\Types\This;
 
 class PageFixtures extends BaseFixture implements DependentFixtureInterface
 {
@@ -17,7 +16,7 @@ class PageFixtures extends BaseFixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i < self::TOTAL_NUMBER_PAGES; $i++) {
+        for ($i = 1; $i <= self::TOTAL_NUMBER_PAGES; $i++) {
             $page = new Page();
             $page->setTitle($this->faker->word);
             $page->setContent($this->faker->randomHtml());
