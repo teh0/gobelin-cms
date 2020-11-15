@@ -19,7 +19,7 @@ class UserFixtures extends BaseFixture
 
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < self::TOTAL_NUMBER_USERS; $i++) {
+        for ($i = 1; $i <= self::TOTAL_NUMBER_USERS; $i++) {
             $user = new User();
             $user->setEmail("user$i@mail.com");
             $user->setName($this->faker->name);
