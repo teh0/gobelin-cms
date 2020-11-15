@@ -7,9 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @Vich\Uploadable
  */
 class Category
 {
@@ -32,9 +35,22 @@ class Category
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null`
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $icon = 'default-icon-category.svg';
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="categories_thumbnails", fileNameProperty="icon")
+     */
+    private $iconFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Page::class, mappedBy="categories")
@@ -112,5 +128,26 @@ class Category
         }
 
         return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getIconFile(): ?File
+    {
+        return $this->iconFile;
+    }
+
+    /**
+     * @param File|null $iconFile
+     *
+     * @throws \Exception
+     */
+    public function setIconFile(?File $iconFile): void
+    {
+        $this->iconFile = $iconFile;
+        if (null !== $this->iconFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 }

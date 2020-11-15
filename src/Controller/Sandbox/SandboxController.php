@@ -21,12 +21,12 @@ class SandboxController extends BaseController
 
     public function index(Request $request): Response
     {
-        return $this->testPageForm($request);
+        return $this->testCategoryForm($request);
     }
 
     private function testPageForm(Request $request): Response
     {
-        //$page = $this->getEntityManager()->find(Page::class, 6);
+        //$page = $this->getEntityManager()->find(Page::class, 9);
         $page = new Page();
         $form = $this->createForm(PageEntityType::class, $page);
         $form->handleRequest($request);
