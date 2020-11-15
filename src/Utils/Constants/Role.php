@@ -8,4 +8,5 @@ class Role
 {
     const USER = 'ROLE_USER';
     const USER_VALIDATED = 'ROLE_USER_VALIDATED';
+    const ADMIN = 'ROLE_ADMIN';
 }
