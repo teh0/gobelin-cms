@@ -38,11 +38,11 @@ return function (RoutingConfigurator $router) {
     /* Tag */
     $router->add('admin.manager.tag.home', 'admin/tag')
         ->controller([TagManager::class, 'index']);
-    $router->add('admin.manager.category.read', 'admin/tag/1') // @need page slug or id
+    $router->add('admin.manager.tag.read', 'admin/tag/1') // @need page slug or id
     ->controller([TagManager::class, 'read']);
-    $router->add('admin.manager.category.update', 'admin/tag/update/1') // @need page slug or id
+    $router->add('admin.manager.tag.update', 'admin/tag/update/1') // @need page slug or id
     ->controller([TagManager::class, 'update']);
-    $router->add('admin.manager.category.create', 'admin/tag/create/12') // @need page slug or id
+    $router->add('admin.manager.tag.create', 'admin/tag/create/12') // @need page slug or id
     ->controller([TagManager::class, 'create']);
 
     /* User */
