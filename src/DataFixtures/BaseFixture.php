@@ -27,4 +27,17 @@ abstract class BaseFixture extends Fixture
         $this->encoder = $encoder;
     }
 
+    protected function getRandomRelationReferences(string $prefixReference, int $totalReference, int $quantity)
+    {
+        $relationReferences = [];
+        $rangeIndex = range(1, $totalReference);
+        shuffle($rangeIndex);
+        $referenceIndex = array_slice($rangeIndex, 0, $quantity);
+
+        foreach ($referenceIndex as $index) {
+            $relationReferences[] = $prefixReference . "-$index";
+        }
+
+        return $relationReferences;
+    }
 }

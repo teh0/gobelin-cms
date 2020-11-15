@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use App\Utils\Constants\Role;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class UserFixtures extends BaseFixture
@@ -28,7 +27,7 @@ class UserFixtures extends BaseFixture
             $user->setPassword($this->encoder->encodePassword($user, self::USER_PASSWORD));
             $user->addRole($this->userRole($user));
             $user->setIsVerified(true);
-            $this->setReference(self::PREFIX_REFERENCE . "-$i", $user);
+            $this->addReference(self::PREFIX_REFERENCE . "-$i", $user);
             $manager->persist($user);
         }
 
