@@ -1,0 +1,28 @@
+{% set pagenumber = 30%}
+{% set categorynumber = 12%}
+{% set articles =[ {'title': 'Augmentation du prix du gasoil','imgPath': '/admin'},
+    {'title': 'Information coronavirus','imgPath': '/admin'},
+    {'title': 'Home','imgPath': '/admin'},
+] %}
+
+{% extends 'layouts/admin/base-admin.html.twig' %}
+
+{% block namespace %}admin-home{% endblock %}
+
+{% block admin_content %}
+
+{#    TODO --> add UI and make better structure#}
+{#    @need --> page number / category number#}
+{#    @need --> last articles --> title & image path#}
+    <h1>Nombre de pages  : {{ pagenumber}} </h1>
+    <h1>Nombre de categories  : {{ categorynumber}} </h1>
+    <span> Derniers articles posté:</span>
+    <ul class="articlelist">
+        {% for article in articles %}
+        <li class="articlelist-item col-4">
+            <span class="articlelist-item--title">{{ article.title }}</span>
+            <div class="articlelist-item--image"></div>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

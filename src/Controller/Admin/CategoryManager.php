@@ -8,24 +8,24 @@ use App\Controller\BaseController;
 use App\Utils\Constants\Path;
 use Symfony\Component\HttpFoundation\Response;
 
-class PageManager extends BaseController
+class CategoryManager extends BaseController
 {
     public function index(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/page/list.html.twig');
+        return $this->render(Path::ADMIN_PAGES . '/managers/category/list.html.twig');
     }
 
     public function create(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/page/create.html.twig');
+        return $this->render(Path::ADMIN_PAGES . '/managers/category/create.html.twig');
     }
     public function read(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/page/read.html.twig');
+        return $this->render(Path::ADMIN_PAGES . '/managers/category/read.html.twig');
     }
     public function update(): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/page/update.html.twig');
+        return $this->render(Path::ADMIN_PAGES . '/managers/category/update.html.twig');
     }
 
     public function delete()
