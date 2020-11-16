@@ -10,4 +10,11 @@ class Route
     const REGISTER = 'register';
     const HOME_VISITOR = 'visitor.home';
     const ERROR_404 = 'error.404';
+  
+    const HOME_ADMIN = 'admin.home';
+    const HOME_PAGES_MANAGER = 'admin.manager.pages.home';
+    const HOME_TAGS_MANAGER = 'admin.manager.tags.home';
+    const HOME_CATEGORIES_MANAGER = 'admin.manager.categories.home';
+    const HOME_USERS_MANAGER = 'admin.manager.tags.home';
 }
+

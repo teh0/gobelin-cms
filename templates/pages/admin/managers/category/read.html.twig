@@ -1,7 +1,8 @@
-{% extends 'layouts/base.html.twig' %}
- {% block content %}
-     {%  include 'partials/admin/header.html.twig' %}
+{% extends 'layouts/admin/managers/manager-read.html.twig' %}
 
-     <a href="/admin/category">go back</a>
-     <h1>catt 1 content</h1>
- {% endblock %}
+{% block admin_title_page %}
+    <h1>Catégorie #{{ category.id }}</h1>
+{% endblock %}
+{% block admin_content %}
+    {# @TODO: display info of current category (use category variable already set in this template) #}
+{% endblock %}

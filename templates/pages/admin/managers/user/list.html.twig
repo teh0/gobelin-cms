@@ -1,27 +1,56 @@
-{# TODO clean PATH #}
-{% set userdata = [
-    {'name': 'nael','id': '1'},
-    {'name': 'theo','id': '2'},
-    {'name': 'football','id': '3'},
-    {'name': 'judo','id': '4'},
-    {'name': 'musique','id': '5'},
-] %}
-
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
-{% block admin_content %}
-    <h1>Liste des USERS </h1>
 
-    <span><a href="user/create/12">Create</a></span>
+{% block admin_title_page %}
+    <h1>Liste des utilisateurs</h1>
+{% endblock %}
 
-    <ul>
-        {#        @need --> page id / page name #}
-        {% for user in userdata %}
-            <li class="col-4">
-                <span>{{ user.name }}</span>
-                <a href="user/update/{{ user.id }}">Update</a>
-                <a href="user/{{ user.id }}">Read</a>
-                <a href="user/delete/{{ user.id }}">Delete</a>
-            </li>
+{% block list_header %}
+    <div>
+        {{ knp_pagination_render(users) }}
+    </div>
+{% endblock %}
+
+{% block list_table %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#id</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Pseudo</th>
+            <th scope="col">Role</th>
+            <th scope="col">Pages écrites</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.name }}</td>
+                <td>{{ user.pseudo }}</td>
+                <td>
+                    {% if 'ROLE_ADMIN' in user.getroles(TRUE)  %}
+                        Admin
+                    {% else %}
+                        User
+                    {% endif %}
+                </td>
+                <td>{{ user.pages | length }}</td>
+                <td>
+                    <a href="{{ path('admin.manager.users.read', {'id': user.id}) }}">
+                        <button type="button" class="btn btn-primary">Voir</button>
+                    </a>
+                    <a href="mailto:{{ user.email }}">
+                        <button type="button" class="btn btn-info">Envoyer un mail</button>
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block list_pagination %}
+    {{ knp_pagination_render(users) }}
 {% endblock %}

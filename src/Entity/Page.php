@@ -60,7 +60,7 @@ class Page
      * @var string|null
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $thumbnail = 'default-thumbnail.svg';
+    private $thumbnail = 'default-thumbnail.jpg';
 
     /**
      * @var File|null

@@ -1,10 +1,11 @@
 {% set menudata = [
-    {'name': 'Home','url': '/admin'},
-    {'name': 'Page','url': '/admin/page'},
-    {'name': 'Category','url': '/admin/category'},
-    {'name': 'Tag','url': '/admin/tag'},
-    {'name': 'User','url': '/admin/user'},
-    ] %}
+    {'name': 'Home','url': path('admin.home')},
+    {'name': 'Page','url': path('admin.manager.pages.home')},
+    {'name': 'Category','url': path('admin.manager.categories.home')},
+    {'name': 'Tag','url': path('admin.manager.tags.home')},
+    {'name': 'User','url': path('admin.manager.users.home')},
+    ]
+%}
 
 <aside class="col-3 col-md-2 p-0 bg-dark">
     <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start">
