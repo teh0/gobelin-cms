@@ -54,8 +54,8 @@ class ExceptionHandler
     {
         return [
             NotFoundHttpException::class => [ // @TODO Change to 404 page when it will be ready
-                'route_url' => '/',
-                'route_name' => Route::HOME_VISITOR
+                'route_url' => '/404',
+                'route_name' => Route::ERROR_404
             ],
 
             AccessDeniedHttpException::class => [
@@ -65,7 +65,7 @@ class ExceptionHandler
 
             'default' => [
                 'route_url' => '/',
-                'route_name' => Route::HOME_VISITOR
+                'route_name' => Route::ERROR_404
             ]
         ];
     }
