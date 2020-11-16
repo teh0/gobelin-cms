@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
         $this
@@ -35,18 +35,21 @@ class RegistrationFormType extends AbstractType
     private function buildName(FormBuilderInterface $builder): RegistrationFormType
     {
         $builder->add('name', TextType::class);
+
         return $this;
     }
 
     private function buildPseudo(FormBuilderInterface $builder): RegistrationFormType
     {
         $builder->add('pseudo', TextType::class);
+
         return $this;
     }
 
     private function buildEmail(FormBuilderInterface $builder): RegistrationFormType
     {
         $builder->add('email', EmailType::class);
+
         return $this;
     }
 
@@ -68,6 +71,7 @@ class RegistrationFormType extends AbstractType
                 ]),
             ],
         ]);
+
         return $this;
     }
 }

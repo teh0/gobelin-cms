@@ -1,10 +1,10 @@
 <?php
 
 use App\Controller\Admin\AdminController;
-use App\Controller\Admin\PageManager;
-use App\Controller\Admin\CategoryManager;
-use App\Controller\Admin\TagManager;
-use App\Controller\Admin\UserManager;
+use App\Controller\Admin\CategoryManagerController;
+use App\Controller\Admin\PageManagerController;
+use App\Controller\Admin\TagManagerController;
+use App\Controller\Admin\UserManagerController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return function (RoutingConfigurator $router) {
@@ -13,45 +13,85 @@ return function (RoutingConfigurator $router) {
     $router->add('admin.home', 'admin/')
         ->controller([AdminController::class, 'index']);
 
-    /* Page */
-    $router->add('admin.manager.page.home', 'admin/page')
-        ->controller([PageManager::class, 'index']);
 
-    $router->add('admin.manager.page.read', 'admin/page/1') // @need page slug or id
-        ->controller([PageManager::class, 'read']);
-    $router->add('admin.manager.page.update', 'admin/page/update/1') // @need page slug or id
-    ->controller([PageManager::class, 'update']);
-    $router->add('admin.manager.page.create', 'admin/page/create/12') // @need page slug or id
-    ->controller([PageManager::class, 'create']);
+    /* Page */
+    /* --- All */
+    $router->add('admin.manager.pages.home', 'admin/pages')
+        ->controller([PageManagerController::class, 'index'])
+        ->methods(['GET']);
+    /* --- Create */
+    $router->add('admin.manager.pages.create', 'admin/pages/create')
+        ->controller([PageManagerController::class, 'create'])
+        ->methods(['GET', 'POST']);
+    /* --- Read */
+    $router->add('admin.manager.pages.read', '/admin/pages/{id}')
+        ->controller([PageManagerController::class, 'read'])
+        ->methods(['GET']);
+    /* --- Update */
+    $router->add('admin.manager.pages.update', 'admin/pages/update/{id}')
+        ->controller([PageManagerController::class, 'update'])
+        ->methods(['GET', 'POST']);
+    /* --- Delete */
+    $router->add('admin.manager.pages.delete', 'admin/pages/delete/{id}')
+        ->controller([PageManagerController::class, 'delete'])
+        ->methods(['GET']);
 
 
     /* Category */
-    $router->add('admin.manager.category.home', 'admin/category')
-        ->controller([CategoryManager::class, 'index']);
-    $router->add('admin.manager.category.read', 'admin/category/1') // @need page slug or id
-    ->controller([CategoryManager::class, 'read']);
-    $router->add('admin.manager.category.update', 'admin/category/update/1') // @need page slug or id
-    ->controller([CategoryManager::class, 'update']);
-    $router->add('admin.manager.category.create', 'admin/category/create/12') // @need page slug or id
-    ->controller([CategoryManager::class, 'create']);
+    /* --- All */
+    $router->add('admin.manager.categories.home', 'admin/categories')
+        ->controller([CategoryManagerController::class, 'index'])
+        ->methods(['GET']);
+    /* --- Create */
+    $router->add('admin.manager.categories.create', 'admin/categories/create')
+        ->controller([CategoryManagerController::class, 'create'])
+        ->methods(['GET', 'POST']);
+    /* --- Read */
+    $router->add('admin.manager.categories.read', 'admin/category/{id}')
+        ->controller([CategoryManagerController::class, 'read'])
+        ->methods(['GET']);
+    /* --- Update */
+    $router->add('admin.manager.categories.update', 'admin/categories/update/{id}')
+        ->controller([CategoryManagerController::class, 'update'])
+        ->methods(['GET', 'POST']);
+    /* --- Delete */
+    $router->add('admin.manager.categories.delete', 'admin/categories/delete/{id}')
+        ->controller([CategoryManagerController::class, 'delete'])
+        ->methods(['GET']);
+
 
     /* Tag */
-    $router->add('admin.manager.tag.home', 'admin/tag')
-        ->controller([TagManager::class, 'index']);
-    $router->add('admin.manager.tag.read', 'admin/tag/1') // @need page slug or id
-    ->controller([TagManager::class, 'read']);
-    $router->add('admin.manager.tag.update', 'admin/tag/update/1') // @need page slug or id
-    ->controller([TagManager::class, 'update']);
-    $router->add('admin.manager.tag.create', 'admin/tag/create/12') // @need page slug or id
-    ->controller([TagManager::class, 'create']);
+    /* --- All */
+    $router->add('admin.manager.tags.home', 'admin/tags')
+        ->controller([TagManagerController::class, 'index'])
+        ->methods(['GET']);
+    /* --- Create */
+    $router->add('admin.manager.tags.create', 'admin/tags/create')
+        ->controller([TagManagerController::class, 'create'])
+        ->methods(['GET', 'POST']);
+    /* --- Read */
+    $router->add('admin.manager.tags.read', 'admin/tags/{id}')
+        ->controller([TagManagerController::class, 'read'])
+        ->methods(['GET']);
+    /* --- Update */
+    $router->add('admin.manager.tags.update', 'admin/tags/update/{id}')
+        ->controller([TagManagerController::class, 'update'])
+        ->methods(['GET', 'POST']);
+    /* --- Delete */
+    $router->add('admin.manager.tags.delete', 'admin/tags/delete/{id}')
+        ->controller([TagManagerController::class, 'delete'])
+        ->methods(['GET']);
+
 
     /* User */
-    $router->add('admin.manager.user.home', 'admin/user')
-        ->controller([UserManager::class, 'index']);
-    $router->add('admin.manager.user.read', 'admin/user/1') // @need page slug or id
-    ->controller([UserManager::class, 'read']);
-    $router->add('admin.manager.user.update', 'admin/user/update/1') // @need page slug or id
-    ->controller([UserManager::class, 'update']);
-    $router->add('admin.manager.user.create', 'admin/user/create/12') // @need page slug or id
-    ->controller([UserManager::class, 'create']);
+    /* --- All */
+    $router->add('admin.manager.users.home', 'admin/users')
+        ->controller([UserManagerController::class, 'index']);
+    /* --- Create */
+    $router->add('admin.manager.users.create', 'admin/users/create')
+        ->controller([UserManagerController::class, 'create'])
+        ->methods(['GET', 'POST']);
+    /* --- Read */
+    $router->add('admin.manager.users.read', 'admin/users/{id}')
+        ->controller([UserManagerController::class, 'read']);
 };

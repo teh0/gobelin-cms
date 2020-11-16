@@ -1,27 +1,51 @@
-{# TODO clean PATH #}
-{% set tagdata = [
-    {'title': 'coronavirus','id': '1'},
-    {'title': 'cours de la bourse','id': '2'},
-    {'title': 'football','id': '3'},
-    {'title': 'judo','id': '4'},
-    {'title': 'musique','id': '5'},
-] %}
-
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
-{% block admin_content %}
-    <h1>Liste des TAG </h1>
+{% block admin_title_page %}
+    <h1>Liste des Tags</h1>
+{% endblock %}
 
-    <span><a href="tag/create/12">Create</a></span>
+{% block list_header %}
+    <div>
+        {{ knp_pagination_render(tags) }}
+    </div>
+    <a href="{{ path('admin.manager.tags.create') }}">
+        <button type="button" class="btn btn-primary">Créer</button>
+    </a>
+{% endblock %}
 
-    <ul>
-        {#        @need --> page id / page title #}
-        {% for tag in tagdata %}
-            <li class="col-4">
-                <span>{{ tag.title }}</span>
-                <a href="tag/update/{{ tag.id }}">Update</a>
-                <a href="tag/{{ tag.id }}">Read</a>
-                <a href="tag/delete/{{ tag.id }}">Delete</a>
-            </li>
+{% block list_table %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#id</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Nombre de pages</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+            <tr>
+                <th scope="row">{{ tag.id }}</th>
+                <td style="color: {{ tag.color }}">{{ tag.name }}</td>
+                <td>{{ tag.pages | length }}</td>
+                <td>
+                    <a href="{{ path('admin.manager.tags.read', {'id': tag.id}) }}">
+                        <button type="button" class="btn btn-primary">Voir</button>
+                    </a>
+                    <a href="{{ path('admin.manager.tags.update', {'id': tag.id}) }}">
+                        <button type="button" class="btn btn-warning">Modifier</button>
+                    </a>
+                    <a href="{{ path('admin.manager.tags.delete', {'id': tag.id}) }}">
+                        <button type="button" class="btn btn-danger">Supprimer</button>
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block list_pagination %}
+    {{ knp_pagination_render(tags) }}
 {% endblock %}

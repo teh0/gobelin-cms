@@ -1,27 +1,51 @@
-{# TODO clean PATH #}
-{% set pagedata = [
-    {'title': 'coronavirus','id': '1'},
-    {'title': 'cours de la bourse','id': '2'},
-    {'title': 'football','id': '3'},
-    {'title': 'judo','id': '4'},
-    {'title': 'musique','id': '5'},
-] %}
-
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
-{% block admin_content %}
-    <h1>Liste des categories !  </h1>
+{% block admin_title_page %}
+    <h1>Liste des Catégories</h1>
+{% endblock %}
 
-    <span><a href="category/create/12">Create</a></span>
+{% block list_header %}
+    <div>
+        {{ knp_pagination_render(categories) }}
+    </div>
+    <a href="{{ path('admin.manager.categories.create') }}">
+        <button type="button" class="btn btn-primary">Créer</button>
+    </a>
+{% endblock %}
 
-    <ul>
-{#        @need --> page id / page title #}
-        {% for page in pagedata %}
-            <li class="col-4">
-                <span>{{ page.title }}</span>
-                <a href="category/update/{{ page.id }}">Update</a>
-                <a href="category/{{ page.id }}">Read</a>
-                <a href="category/delete/{{ page.id }}">Delete</a>
-            </li>
+{% block list_table %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#id</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Nombre de pages</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <th scope="row">{{ category.id }}</th>
+                <td>{{ category.name }}</td>
+                <td>{{ category.pages | length }}</td>
+                <td>
+                    <a href="{{ path('admin.manager.categories.read', {'id': category.id}) }}">
+                        <button type="button" class="btn btn-primary">Voir</button>
+                    </a>
+                    <a href="{{ path('admin.manager.categories.update', {'id': category.id}) }}">
+                        <button type="button" class="btn btn-warning">Modifier</button>
+                    </a>
+                    <a href="{{ path('admin.manager.categories.delete', {'id': category.id}) }}">
+                        <button type="button" class="btn btn-danger">Supprimer</button>
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block list_pagination %}
+    {{ knp_pagination_render(categories) }}
 {% endblock %}

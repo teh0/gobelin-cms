@@ -1,10 +1,15 @@
+{% extends 'layouts/admin/base-admin.html.twig' %}
 
-{#{% block okk %}#}
-{#    <div> bonjour</div>#}
-{#{% endblock %}#}
-{% extends 'pages/admin/home.html.twig' %}
+{% block admin_title_page %}{% endblock %}
 {% block admin_content %}
-    <h1>Welcome home admin manager list !!!!</h1>
+    {# Add all utils button actions for searchbar, create buttons ... #}
+    <div class="mb-3 d-flex flex-row">
+        {% block list_header %}{% endblock %}
+    </div>
 
+    {# Table container #}
+    {% block list_table %}{% endblock %}
 
+    {# Pagination container #}
+    {% block list_pagination %}{% endblock %}
 {% endblock %}
