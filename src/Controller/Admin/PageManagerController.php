@@ -11,6 +11,7 @@ use App\Repository\PageRepository;
 use App\Utils\Constants\Path;
 use App\Utils\Constants\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,9 +26,24 @@ class PageManagerController extends BaseController
         ]);
     }
 
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/page/create.html.twig');
+        $page = new Page();
+        $form = $this->createForm(PageEntityType::class, $page);
+        $form->handleRequest($request);
+
+        if ($this->validateAndSubmittedForm($form)) {
+            $page->setAuthor($this->getUser());
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($page);
+            $entityManager->flush();
+
+            return $this->redirectToRoute(Route::HOME_ADMIN);
+        }
+
+        return $this->render(Path::ADMIN_PAGES . '/managers/page/create.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     public function read(Page $page): Response
@@ -45,6 +61,8 @@ class PageManagerController extends BaseController
             $entityManager = $this->getEntityManager();
             $entityManager->persist($page);
             $entityManager->flush();
+
+            return $this->redirectToRoute(Route::HOME_ADMIN);
         }
 
         return $this->render(Path::ADMIN_PAGES . '/managers/page/update.html.twig', [
@@ -52,10 +70,11 @@ class PageManagerController extends BaseController
         ]);
     }
 
-    public function delete(Page $page)
+    public function delete(Page $page): RedirectResponse
     {
         $this->getEntityManager()->remove($page);
         $this->getEntityManager()->flush();
-        return $this->redirectToRoute('admin.manager.pages.home');
+
+        return $this->redirectToRoute(Route::HOME_PAGES_MANAGER);
     }
 }

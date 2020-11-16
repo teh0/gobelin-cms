@@ -1,8 +1,18 @@
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
-{% block admin_content %}
-    <h1>Liste des pages </h1>
+{% block admin_title_page %}
+    <h1>Liste des Pages</h1>
+{% endblock %}
 
-    <span><a href="page/create/12">Create</a></span>
+{% block list_header %}
+    <div>
+        {{ knp_pagination_render(pages) }}
+    </div>
+    <a href="{{ path('admin.manager.pages.create') }}">
+        <button type="button" class="btn btn-primary">Créer</button>
+    </a>
+{% endblock %}
+
+{% block list_table %}
     <table class="table table-striped">
         <thead>
         <tr>
@@ -17,7 +27,9 @@
             <tr>
                 <th scope="row">{{ page.id }}</th>
                 <td>{{ page.title }}</td>
-                <td>{{ page.author.name }}</td>
+                <td>
+                    <a href="{{ path('admin.manager.users.read', {'id': page.author.id}) }}">{{ page.author.name }}</a>
+                </td>
                 <td>
                     <a href="{{ path('admin.manager.pages.read', {'id': page.id}) }}">
                         <button type="button" class="btn btn-primary">Voir</button>
@@ -34,6 +46,8 @@
 
         </tbody>
     </table>
+{% endblock %}
 
+{% block list_pagination %}
     {{ knp_pagination_render(pages) }}
 {% endblock %}

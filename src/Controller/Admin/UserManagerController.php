@@ -5,36 +5,29 @@ namespace App\Controller\Admin;
 
 
 use App\Controller\BaseController;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Utils\Constants\Path;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserManagerController extends BaseController
 {
-    /**
-     * Homepage  category
-     */
-    public function index(): Response
+    public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/user/list.html.twig');
+        $users = $userRepository->paginate($request, $paginator);
+
+        return $this->render(Path::ADMIN_PAGES . '/managers/user/list.html.twig', [
+            'users' => $users
+        ]);
     }
 
-    public function create(): Response
+    public function read(User $user): Response
     {
-        return $this->render(Path::ADMIN_PAGES . '/managers/user/create.html.twig');
+        return $this->render(Path::ADMIN_PAGES . '/managers/user/read.html.twig', [
+            'user' => $user
+        ]);
     }
 
-    public function read(): Response
-    {
-        return $this->render(Path::ADMIN_PAGES . '/managers/user/read.html.twig');
-    }
-
-    public function update(): Response
-    {
-        return $this->render(Path::ADMIN_PAGES . '/managers/user/update.html.twig');
-    }
-
-    public function delete()
-    {
-
-    }
 }

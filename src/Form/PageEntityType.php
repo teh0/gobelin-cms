@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PageEntityType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $this
             ->buildTitle($builder)
@@ -27,7 +27,7 @@ class PageEntityType extends AbstractType
             ->buildThumbnail($builder)
             ->buildCategories($builder)
             ->buildTags($builder)
-            ->builSubmitButton($builder)
+            ->buildSubmitButton($builder)
         ;
     }
 
@@ -41,18 +41,21 @@ class PageEntityType extends AbstractType
     private function buildTitle(FormBuilderInterface $builder): PageEntityType
     {
         $builder->add('title', TextType::class);
+
         return $this;
     }
 
     private function buildDescription(FormBuilderInterface $builder): PageEntityType
     {
         $builder->add('description', TextareaType::class);
+
         return $this;
     }
 
     private function buildContent(FormBuilderInterface $builder): PageEntityType
     {
         $builder->add('content', CKEditorType::class);
+
         return $this;
     }
 
@@ -107,7 +110,7 @@ class PageEntityType extends AbstractType
         return $this;
     }
 
-    private function builSubmitButton(FormBuilderInterface $builder): PageEntityType
+    private function buildSubmitButton(FormBuilderInterface $builder): PageEntityType
     {
         $builder->add('Submit', SubmitType::class);
 

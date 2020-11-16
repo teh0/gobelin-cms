@@ -5,10 +5,13 @@
     <div class="admin-wrapper">
         {%  include 'partials/admin/menu.html.twig' %}
         <div class="admin-container">
-            {% block admin_content %}
+            {# Title of the page container #}
+            <div class="mb-3 mt-4">
+                {% block admin_title_page %}{% endblock %}
+            </div>
 
-
-            {% endblock %}
+            {# Content of the page #}
+            {% block admin_content %}{% endblock %}
         </div>
     </div>
 {% endblock %}
