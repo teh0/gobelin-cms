@@ -65,7 +65,7 @@ class ExceptionHandler
 
             'default' => [
                 'route_url' => '/',
-                'route_name' => Route::HOME_VISITOR
+                'route_name' => Route::ERROR_404
             ]
         ];
     }
