@@ -1,8 +1,11 @@
 {% extends 'layouts/admin/managers/manager-read.html.twig' %}
 
+{% block namespace %}admin.manager.categories.read{% endblock %}
+
 {% block admin_title_page %}
     <h1>Catégorie #{{ category.id }}</h1>
 {% endblock %}
+
 {% block admin_content %}
     {# @TODO: display info of current category (use category variable already set in this template) #}
 {% endblock %}
