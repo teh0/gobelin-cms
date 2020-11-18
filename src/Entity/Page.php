@@ -26,7 +26,7 @@ class Page
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      * @Assert\Length(min="5", max="20")
      */
     private $title;
@@ -69,7 +69,7 @@ class Page
     /**
      * @var File|null
      * @Vich\UploadableField(mapping="pages_thumbnails", fileNameProperty="thumbnail")
-     * @Assert\File(mimeTypes={"image/jpg", "image/png", "image/jpeg"})
+     * @Assert\File(mimeTypes={"image/jpg", "image/png", "image/jpeg"}, maxSize="2048k")
      */
     private $thumbnailFile;
 
