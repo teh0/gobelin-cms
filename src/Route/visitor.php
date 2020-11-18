@@ -8,18 +8,20 @@ return function (RoutingConfigurator $router) {
     $router->add('visitor.home', '/')
         ->controller([VisitorController::class, 'index']);
 
-    // Categories list
-    $router->add('visitor.categories', '/categories')
+    /* Categories */
+    /* --- List */
+    $router->add('visitor.categories.list', '/categories')
         ->controller([VisitorController::class, 'categories']);
-    // --> category's post list
-    $router->add('visitor.category', '/category/1') // @need category id or slug
+    /* --- Read */
+    $router->add('visitor.categories.read', '/category/{id}') // @need category id or slug
         ->controller([VisitorController::class, 'category']);
 
-    // Posts list
-    $router->add('visitor.posts', '/posts')
+    /* Posts */
+    /* --- List */
+    $router->add('visitor.posts.list', '/posts')
         ->controller([VisitorController::class, 'posts']);
 
-    // single post
-    $router->add('visitor.post', '/post/1') // @need category id or slug
+    /* --- Read */
+    $router->add('visitor.posts.read', '/post/{id}') // @need category id or slug
         ->controller([VisitorController::class, 'post']);
 };

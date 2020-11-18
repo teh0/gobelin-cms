@@ -52,7 +52,7 @@ class ExceptionHandler
             },
 
             AccessDeniedHttpException::class => function(): Response {
-                return new RedirectResponse('/login');
+                return new RedirectResponse('/');
             },
 
             'default' => function(): Response {

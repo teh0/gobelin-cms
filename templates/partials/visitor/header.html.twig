@@ -1,22 +1,61 @@
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" href="{{ path('visitor.home') }}">Gobelins CMS</a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/categories">Categories</a>
-            </li>
+    <div class="w-100 d-flex justify-content-between">
+        <div class="d-flex align-items-center">
+            <a class="mr-2" href="{{ path('visitor.home') }}">Accueil</a>
+            <a class="mr-2" href="{{ path('visitor.categories.list') }}">Catégories</a>
+            <a href="{{ path('visitor.posts.list') }}">Article</a>
+        </div>
 
-            <li class="nav-item">
-                <a class="nav-link " href="/posts">Posts</a>
-            </li>
-        </ul>
+        <div>
+
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="d-flex align-items-center">
+                    {# Avatar button #}
+                    <button class="navbar-toggler mr-4" type="button" data-toggle="collapse"
+                            data-target="#navbar-list-4"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar-list-4">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{{ asset('/images/uploads/users/' ~ app.user.avatar) }}" width="40"
+                                         height="40" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="{{ path('logout') }}">Se déconnecter</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <span class="ml-3 mr-3">Bonjour <strong>{{ app.user.name }}</strong></span>
+
+                    {# Admin link #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="mr-3" href="{{ path('admin.home') }}">
+                            <button type="button" class="btn btn-success">Espace Admin</button>
+                        </a>
+                    {% endif %}
+                </div>
+
+
+            {% else %}
+                <div>
+
+                    <a class="mr-3" href="{{ path('login') }}">
+                        <button class="btn btn-primary">Se connecter</button>
+                    </a>
+
+                    <a class="mr-3" href="{{ path('register') }}">
+                        <button class="btn btn-outline-primary">S'enregistrer</button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </nav>
