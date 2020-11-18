@@ -6,7 +6,6 @@ namespace App\EventSubscriber;
 
 use App\Exception\ExceptionHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 class ExceptionSubscriber implements EventSubscriberInterface
@@ -38,8 +37,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     public function onKernelException(ExceptionEvent $exceptionEvent)
     {
         /* Call custom exception handler */
-        $redirectUrl = $this->exceptionHandler->getUrlRedirection($exceptionEvent->getThrowable());
-        $exceptionEvent->setResponse(new RedirectResponse($redirectUrl));
+        $this->exceptionHandler->handle($exceptionEvent);
     }
 
 }

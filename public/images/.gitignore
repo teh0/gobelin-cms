@@ -1,0 +1,16 @@
+# Keep default thumbnail of our pages
+!uploads
+uploads/*
+!uploads/pages
+uploads/pages/*
+!uploads/pages/default-thumbnail.jpg
+
+# Keep default icon of our categories
+!uploads/categories
+uploads/categories/*
+!uploads/categories/default-icon-category.svg
+
+# Keep default avatar of our users
+!uploads/users
+uploads/users/*
+!uploads/users/default-avatar-user.svg
