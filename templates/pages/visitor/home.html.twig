@@ -1,38 +1,38 @@
-{% set articles =[ {'title': 'Augmentation du prix du gasoil','imgPath': '/admin'},
-    {'title': 'Information coronavirus','imgPath': '/admin'},
-    {'title': 'Home','imgPath': '/admin'},
-] %}
 {% extends 'layouts/visitor/base-visitor.html.twig' %}
 
 {% block namespace %}visitor-home{% endblock %}
 
 {% block visitor_content %}
-    <h1>Welcome home visitor !!!!</h1>
+    <h1>Accueil</h1>
 
-    <p class="visitor-description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <p class="visitor-description mb-4">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.
     </p>
 
-
-    <div class="page">
-        <ul class="articlelist">
-            {% for article in articles %}
-                <li class="articlelist-item col-4">
-                    <span class="articlelist-item--title">{{ article.title }}</span>
-                    <div class="articlelist-item--image"></div>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-
-    <ul class="articlelist">
-        {% for article in articles %}
-            <li class="articlelist-item col-4">
-                <span class="articlelist-item--title">{{ article.title }}</span>
-                <div class="articlelist-item--image"></div>
-            </li>
-        {% endfor %}
-    </ul>
+    <h2 class="mb-4">Categories les plus populaires</h2>
+    {% for category in categories %}
+        <div>
+            <h3 class="text-info">{{ category.name }}</h3>
+            <div class="row">
+                {% for page in category.pages|slice(0,4) %}
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ vich_uploader_asset(page, 'thumbnailFile') }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ page.title }} <span style="color: {{ page.tags.first.color }}">#{{ page.tags.first.name }}</span></h5>
+                                <p class="card-text">{{ page.description|striptags|slice(0,50) }}...</p>
+                                <a href="{{ path('visitor.posts.read', {'id': page.id}) }}" class="btn btn-primary">Lire</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <hr class="mb-4">
+    {% endfor %}
 
 {% endblock %}

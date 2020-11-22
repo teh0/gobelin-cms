@@ -28,4 +28,24 @@ class CategoryRepository extends BaseRepository
     {
         return 'category';
     }
+
+    private function getBaseRequest()
+    {
+        return $this->createQueryBuilder($this->getAlias())->select($this->getAlias());
+    }
+
+    public function getMostPopulars($count = null)
+    {
+        $query =  $this->createQueryBuilder('c')
+            ->select('c')
+            ->leftJoin('c.pages', 'p')
+            ->orderBy('COUNT(p)', 'DESC')
+            ->groupBy('c');
+
+        if (!is_null($count)) {
+            $query->setMaxResults($count);
+        }
+
+        return $query->getQuery()->getResult();
+    }
 }
