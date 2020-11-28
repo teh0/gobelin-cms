@@ -1,6 +1,6 @@
 {% extends 'layouts/visitor/base-visitor.html.twig' %}
 
-{% block namespace %}visitor-home{% endblock %}
+{% block namespace %}visitor.home{% endblock %}
 
 {% block visitor_content %}
     <h1>Accueil</h1>
@@ -19,16 +19,7 @@
             <h3 class="text-info">{{ category.name }}</h3>
             <div class="row">
                 {% for page in category.pages|slice(0,4) %}
-                    <div class="col-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="{{ vich_uploader_asset(page, 'thumbnailFile') }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ page.title }} <span style="color: {{ page.tags.first.color }}">#{{ page.tags.first.name }}</span></h5>
-                                <p class="card-text">{{ page.description|striptags|slice(0,50) }}...</p>
-                                <a href="{{ path('visitor.posts.read', {'id': page.id}) }}" class="btn btn-primary">Lire</a>
-                            </div>
-                        </div>
-                    </div>
+                    {% include 'components/post_card.html.twig' with {'page': page} %}
                 {% endfor %}
             </div>
         </div>

@@ -19,7 +19,7 @@ class PageFixtures extends BaseFixture implements DependentFixtureInterface
         for ($i = 1; $i <= self::TOTAL_NUMBER_PAGES; $i++) {
             $page = new Page();
             $page->setTitle($this->faker->word);
-            $page->setContent($this->faker->randomHtml());
+            $page->setContent($this->faker->randomHtml(8,8));
             $page->setAuthor($this->getReference(UserFixtures::PREFIX_REFERENCE . '-1'));
             $page->setDescription($this->faker->text);
             $this->setCategories($page);

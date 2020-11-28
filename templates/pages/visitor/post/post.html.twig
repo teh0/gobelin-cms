@@ -1,11 +1,12 @@
 {% extends 'layouts/visitor/base-visitor.html.twig' %}
 
+{% block namespace %}visitor.posts.read{% endblock %}
+
 {% block visitor_content %}
-    post page:
 
-    post title
+    <h1>{{ post.title }}</h1>
 
-    post image
-
-   post content
+    <div>
+        {{ post.content|raw }}
+    </div>
 {%endblock %}
