@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+{% extends 'layouts/visitor/base-visitor.html.twig' %}
 
-<title>Register</title>
+{% block namespace %}register{% endblock %}
 
-{% block body %}
+{% block visitor_content %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
@@ -12,11 +12,11 @@
     {{ form_start(registrationForm) }}
     {{ form_row(registrationForm.name) }}
     {{ form_row(registrationForm.pseudo) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.plainPassword, {
+        label: 'Password'
+    }) }}
 
-        <button type="submit" class="btn">Register</button>
+    <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

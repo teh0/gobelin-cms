@@ -5,33 +5,55 @@ namespace App\Controller\Visitor;
 
 
 use App\Controller\BaseController;
+use App\Entity\Category;
+use App\Entity\Page;
+use App\Repository\CategoryRepository;
+use App\Repository\PageRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class VisitorController extends BaseController
 {
-    public function index()
+    public function index(CategoryRepository $categoryRepository)
     {
-        return $this->render('pages/visitor/home.html.twig');
-    }
-    // list of all posts
-    public function posts()
-    {
-        return $this->render('pages/visitor/post/posts.html.twig');
+        $categories = $categoryRepository->getMostPopulars(3);
+
+        return $this->render('pages/visitor/home.html.twig', [
+            'categories' => $categories
+        ]);
     }
 
-    public function post()
+    public function posts(PageRepository $pageRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        return $this->render('pages/visitor/post/post.html.twig');
+        $pages = $pageRepository->paginate($request, $paginator);
+
+        return $this->render('pages/visitor/post/posts.html.twig', [
+            'pages' => $pages
+        ]);
     }
 
-    // list of all categories
-    public function categories()
+    public function post(Page $post): Response
     {
-        return $this->render('pages/visitor/category/categories.html.twig');
+
+        return $this->render('pages/visitor/post/post.html.twig', [
+            'post' => $post
+        ]);
     }
 
-    // display all category's posts
-    public function category()
+    public function categories(CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator)
     {
-        return $this->render('pages/visitor/category/category.html.twig');
+        $categories = $categoryRepository->paginate($request, $paginator);
+
+        return $this->render('pages/visitor/category/categories.html.twig', [
+            'categories' => $categories
+        ]);
+    }
+
+    public function category(Category $category)
+    {
+        return $this->render('pages/visitor/category/category.html.twig', [
+           'category' => $category
+        ]);
     }
 }

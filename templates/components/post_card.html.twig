@@ -1,0 +1,8 @@
+<div class="card" style="width: 17rem;">
+    <img src="{{ vich_uploader_asset(page, 'thumbnailFile') }}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{ page.title }} <span style="color: {{ page.tags.first.color }}">#{{ page.tags.first.name }}</span></h5>
+        <p class="card-text">{{ page.description|striptags|slice(0,50) }}...</p>
+        <a href="{{ path('visitor.posts.read', {'id': page.id}) }}" class="btn btn-primary">Lire</a>
+    </div>
+</div>

@@ -1,20 +1,14 @@
-{% set categorydata = [
-    {'title': 'coronavirus','id': '1'},
-    {'title': 'cours de la bourse','id': '2'},
-    {'title': 'football','id': '3'},
-    {'title': 'judo','id': '4'},
-    {'title': 'musique','id': '5'},
-] %}
-
 {% extends 'layouts/visitor/base-visitor.html.twig' %}
 
+{% block namespace %}visitor.categories.list{% endblock %}
+
 {% block visitor_content %}
-List of Categories :
+<h2 class="mb-4">List of Categories :</h2>
+
 <ul>
-{#            @need --> page id / page title#}
-    {% for category in categorydata %}
+    {% for category in categories %}
         <li class="col-4">
-            <a href="category/{{ category.id }}"><span >{{ category.title }}</span></a>
+            <a href="{{ path('visitor.categories.read', {'id': category.id}) }}"><span >{{ category.name }}</span></a>
         </li>
     {% endfor %}
 </ul>
