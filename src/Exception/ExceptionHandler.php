@@ -24,7 +24,6 @@ class ExceptionHandler
     }
 
     public function handle(ExceptionEvent $exceptionEvent): void {
-        dd($exceptionEvent->getThrowable());
         $exception = $exceptionEvent->getThrowable();
         $exceptionEvent->setResponse($this->getResponse($exception));
     }
