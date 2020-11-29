@@ -1,21 +1,13 @@
-{% set postdata = [
-    {'title': 'post 1','id': '1'},
-    {'title': 'post 2','id': '2'},
-    {'title': 'post 3','id': '3'},
-    {'title': 'post 4','id': '4'},
-    {'title': 'post 5','id': '5'},
-] %}
-
 {% extends 'layouts/visitor/base-visitor.html.twig' %}
 
+{% block namespace %}visitor.categories.read{% endblock %}
+
 {% block visitor_content %}
-    display category's post :
-    <ul>
-        {#            @need --> page id / page title#}
-        {% for post in postdata %}
-            <li class="col-4">
-                <a href="/post/{{ post.id }}"><span >{{ post.title }}</span></a>
-            </li>
+    <h2 class="mb-4">Liste des articles de la catégorie {{ category.name }}</h2>
+
+    <div class="row">
+        {% for page in category.pages %}
+            {% include 'components/post_card.html.twig' with {'page': page} %}
         {% endfor %}
-    </ul>
+    </div>
 {%endblock %}

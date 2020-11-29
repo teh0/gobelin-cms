@@ -1,4 +1,7 @@
 {% extends 'layouts/admin/managers/manager-list.html.twig' %}
+
+{% block namespace %}admin.manager.tags.home{% endblock %}
+
 {% block admin_title_page %}
     <h1>Liste des Tags</h1>
 {% endblock %}
@@ -7,8 +10,12 @@
     <div>
         {{ knp_pagination_render(tags) }}
     </div>
-    <a href="{{ path('admin.manager.tags.create') }}">
-        <button type="button" class="btn btn-primary">Créer</button>
+    <div class="ml-4">
+        {% include 'components/search_field_bar.html.twig' with {'form': searchForm} %}
+    </div>
+
+    <a class="ml-4" href="{{ path('admin.manager.tags.create') }}">
+        <button type="button" class="btn btn-success">Créer</button>
     </a>
 {% endblock %}
 

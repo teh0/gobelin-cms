@@ -16,3 +16,4 @@ class Route
     const HOME_CATEGORIES_MANAGER = 'admin.manager.categories.home';
     const HOME_USERS_MANAGER = 'admin.manager.tags.home';
 }
+

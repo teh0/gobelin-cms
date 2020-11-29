@@ -18,7 +18,7 @@ return function (RoutingConfigurator $router) {
     /* --- All */
     $router->add('admin.manager.pages.home', 'admin/pages')
         ->controller([PageManagerController::class, 'index'])
-        ->methods(['GET']);
+        ->methods(['GET', 'POST']);
     /* --- Create */
     $router->add('admin.manager.pages.create', 'admin/pages/create')
         ->controller([PageManagerController::class, 'create'])
@@ -41,7 +41,7 @@ return function (RoutingConfigurator $router) {
     /* --- All */
     $router->add('admin.manager.categories.home', 'admin/categories')
         ->controller([CategoryManagerController::class, 'index'])
-        ->methods(['GET']);
+        ->methods(['GET', 'POST']);
     /* --- Create */
     $router->add('admin.manager.categories.create', 'admin/categories/create')
         ->controller([CategoryManagerController::class, 'create'])
@@ -64,7 +64,7 @@ return function (RoutingConfigurator $router) {
     /* --- All */
     $router->add('admin.manager.tags.home', 'admin/tags')
         ->controller([TagManagerController::class, 'index'])
-        ->methods(['GET']);
+        ->methods(['GET', 'POST']);
     /* --- Create */
     $router->add('admin.manager.tags.create', 'admin/tags/create')
         ->controller([TagManagerController::class, 'create'])
@@ -86,7 +86,8 @@ return function (RoutingConfigurator $router) {
     /* User */
     /* --- All */
     $router->add('admin.manager.users.home', 'admin/users')
-        ->controller([UserManagerController::class, 'index']);
+        ->controller([UserManagerController::class, 'index'])
+        ->methods(['GET', 'POST']);
     /* --- Create */
     $router->add('admin.manager.users.create', 'admin/users/create')
         ->controller([UserManagerController::class, 'create'])

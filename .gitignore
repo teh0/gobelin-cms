@@ -1,8 +1,6 @@
 .idea
 .DS_Store
 /var/data.db
-public/images/uploads/
-!public/images/uploads/pages/default-thumbnail.jpg
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

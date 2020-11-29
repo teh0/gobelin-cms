@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Repository\Services\ServiceRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,9 +15,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategoryRepository extends BaseRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, ServiceRepositoryInterface $serviceRepository)
     {
-        parent::__construct($registry, Category::class);
+        parent::__construct($registry, Category::class, $serviceRepository);
     }
 
     public function getAlias(): string
@@ -27,5 +28,32 @@ class CategoryRepository extends BaseRepository
     public function getTableName(): string
     {
         return 'category';
+    }
+
+    private function getBaseRequest()
+    {
+        return $this->createQueryBuilder($this->getAlias())->select($this->getAlias());
+    }
+
+    public function getMostPopulars($count = null)
+    {
+        $query =  $this->createQueryBuilder('c')
+            ->select('c')
+            ->leftJoin('c.pages', 'p')
+            ->orderBy('COUNT(p)', 'DESC')
+            ->groupBy('c');
+
+        if (!is_null($count)) {
+            $query->setMaxResults($count);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function searchableFields(): array
+    {
+        return [
+            'name',
+        ];
     }
 }

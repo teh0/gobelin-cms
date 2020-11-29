@@ -47,7 +47,9 @@ class PageEntityType extends AbstractType
 
     private function buildDescription(FormBuilderInterface $builder): PageEntityType
     {
-        $builder->add('description', TextareaType::class);
+        $builder->add('description', TextareaType::class, [
+            'required' => false
+        ]);
 
         return $this;
     }

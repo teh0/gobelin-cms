@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -25,11 +26,14 @@ class Page
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min="5", max="20")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", length=255, nullable=true)
+     * @Assert\Length(max="255", allowEmptyString=true)
      */
     private $description;
 
@@ -65,6 +69,7 @@ class Page
     /**
      * @var File|null
      * @Vich\UploadableField(mapping="pages_thumbnails", fileNameProperty="thumbnail")
+     * @Assert\File(mimeTypes={"image/jpg", "image/png", "image/jpeg"}, maxSize="2048k")
      */
     private $thumbnailFile;
 

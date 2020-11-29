@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Repository\Services\ServiceRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -17,9 +18,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserRepository extends BaseRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, ServiceRepositoryInterface $serviceRepository)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($registry, User::class, $serviceRepository);
     }
 
     /**
@@ -44,5 +45,13 @@ class UserRepository extends BaseRepository implements PasswordUpgraderInterface
     public function getTableName(): string
     {
         return 'user';
+    }
+
+    public function searchableFields(): array
+    {
+        return [
+            'name',
+            'pseudo'
+        ];
     }
 }

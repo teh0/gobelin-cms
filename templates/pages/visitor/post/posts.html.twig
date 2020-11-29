@@ -1,21 +1,14 @@
-{% set postdata = [
-    {'title': 'coronavirus','id': '1'},
-    {'title': 'cours de la bourse','id': '2'},
-    {'title': 'football','id': '3'},
-    {'title': 'judo','id': '4'},
-    {'title': 'musique','id': '5'},
-] %}
-
 {% extends 'layouts/visitor/base-visitor.html.twig' %}
 
+{% block namespace %}visitor.posts.list{% endblock %}
+
 {% block visitor_content %}
-    List of Posts :
-    <ul>
-        {#            @need --> page id / page title#}
-        {% for post in postdata %}
-            <li class="col-4">
-                <a href="post/{{ post.id }}"><span >{{ post.title }}</span></a>
-            </li>
+    <h2 class="mb-4">Liste de tous les articles</h2>
+    <div class="row">
+        {% for page in pages %}
+            {% include 'components/post_card.html.twig' with {'page': page} %}
         {% endfor %}
-    </ul>
-{%endblock %}
+    </div>
+
+    {{ knp_pagination_render(pages) }}
+{% endblock %}

@@ -4,69 +4,60 @@
 namespace App\Exception;
 
 
-use App\Utils\Constants\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Twig\Environment;
 
 class ExceptionHandler
 {
-    const URL_ROUTE_CRITERIA = 'route_url';
-    const NAME_ROUTE__CRITERIA = 'route_url';
-
     /**
-     * @param \Throwable $exception
-     *
-     * @return mixed
+     * @var Environment
      */
-    public function getUrlRedirection(\Throwable $exception)
+    private $twig;
+
+    public function __construct(Environment $twig)
     {
-        return $this->getInfoFromRules($exception, self::URL_ROUTE_CRITERIA);
+        $this->twig = $twig;
+    }
+
+    public function handle(ExceptionEvent $exceptionEvent): void {
+        $exception = $exceptionEvent->getThrowable();
+        $exceptionEvent->setResponse($this->getResponse($exception));
     }
 
     /**
      * @param \Throwable $exception
      *
-     * @return mixed
+     * @return Response
      */
-    public function getNameRedirection(\Throwable $exception)
-    {
-        return $this->getInfoFromRules($exception, self::NAME_ROUTE__CRITERIA);
-    }
-
-    /**
-     * @param \Throwable $exception
-     * @param string     $criteria
-     *
-     * @return mixed
-     */
-    private function getInfoFromRules(\Throwable $exception, $criteria)
+    private function getResponse(\Throwable $exception): Response
     {
         $instance = $this->getExceptionInstance($exception);
-        $rules = $this->rules();
+        $responses = $this->responses();
 
-        return array_key_exists($instance, $rules) ? $rules[$instance][$criteria] : $rules['default'][$criteria];
+        return array_key_exists($instance, $responses) ? $responses[$instance]() : $responses['default']();
     }
 
     /**
      * @return array
      */
-    private function rules(): array
+    private function responses(): array
     {
         return [
-            NotFoundHttpException::class => [ // @TODO Change to 404 page when it will be ready
-                'route_url' => '/',
-                'route_name' => Route::HOME_VISITOR
-            ],
+            NotFoundHttpException::class => function(): Response {
+                return new Response($this->twig->render('pages/error/error404.html.twig'));
+            },
 
-            AccessDeniedHttpException::class => [
-                'route_url' => '/login',
-                'route_name' => Route::LOGIN
-            ],
+            AccessDeniedHttpException::class => function(): Response {
+                return new RedirectResponse('/');
+            },
 
-            'default' => [
-                'route_url' => '/',
-                'route_name' => Route::HOME_VISITOR
-            ]
+            'default' => function(): Response {
+                return new RedirectResponse('/');
+            }
         ];
     }
 
