@@ -10,6 +10,9 @@
     <div>
         {{ knp_pagination_render(users) }}
     </div>
+    <div class="ml-4">
+        {% include 'components/search_field_bar.html.twig' with {'form': searchForm} %}
+    </div>
 {% endblock %}
 
 {% block list_table %}

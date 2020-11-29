@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Page;
+use App\Repository\Services\ServiceRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -16,9 +17,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PageRepository extends BaseRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, ServiceRepositoryInterface $serviceRepository)
     {
-        parent::__construct($registry, Page::class);
+        parent::__construct($registry, Page::class, $serviceRepository);
     }
 
     public function getAlias(): string
@@ -29,5 +30,14 @@ class PageRepository extends BaseRepository
     public function getTableName(): string
     {
         return 'page';
+    }
+
+    public function searchableFields(): array
+    {
+        return [
+            'title',
+            'description',
+            'content'
+        ];
     }
 }

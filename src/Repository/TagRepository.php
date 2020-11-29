@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Tag;
+use App\Repository\Services\ServiceRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,9 +15,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TagRepository extends BaseRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, ServiceRepositoryInterface $serviceRepository)
     {
-        parent::__construct($registry, Tag::class);
+        parent::__construct($registry, Tag::class, $serviceRepository);
     }
 
     public function getAlias(): string
@@ -27,5 +28,12 @@ class TagRepository extends BaseRepository
     public function getTableName(): string
     {
         return 'tag';
+    }
+
+    public function searchableFields(): array
+    {
+        return [
+            'name',
+        ];
     }
 }

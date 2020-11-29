@@ -6,23 +6,37 @@ namespace App\Controller\Admin;
 
 use App\Controller\BaseController;
 use App\Entity\Page;
+use App\Entity\SearchField;
 use App\Form\PageEntityType;
+use App\Form\SearchFieldType;
 use App\Repository\PageRepository;
 use App\Utils\Constants\Path;
 use App\Utils\Constants\Route;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PageManagerController extends BaseController
 {
-    public function index(PageRepository $pageRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(PageRepository $pageRepository, Request $request): Response
     {
-        $pages = $pageRepository->paginate($request, $paginator);
+        $pages = $pageRepository->paginate($request);
+        $search = new SearchField();
+        $searchForm = $this->createForm(SearchFieldType::class, $search, [
+            'choices' => SearchFieldType::pageChoices(),
+            'method'  => 'POST'
+        ]);
+
+        $searchForm->handleRequest($request);
+
+        if ($this->validateAndSubmittedForm($searchForm)) {
+            $query = $pageRepository->searchByFieldQuery($search->getField(), $search->getValue());
+            $pages = $pageRepository->paginate($request, $query);
+        }
 
         return $this->render(Path::ADMIN_PAGES . '/managers/page/list.html.twig', [
-            'pages' => $pages
+            'pages'      => $pages,
+            'searchForm' => $searchForm->createView()
         ]);
     }
 

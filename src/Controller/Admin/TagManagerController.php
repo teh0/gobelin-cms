@@ -5,24 +5,38 @@ namespace App\Controller\Admin;
 
 
 use App\Controller\BaseController;
+use App\Entity\SearchField;
 use App\Entity\Tag;
+use App\Form\SearchFieldType;
 use App\Form\TagEntityType;
 use App\Repository\TagRepository;
 use App\Utils\Constants\Path;
 use App\Utils\Constants\Route;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TagManagerController extends BaseController
 {
-    public function index(TagRepository $tagRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(TagRepository $tagRepository, Request $request): Response
     {
-        $tags = $tagRepository->paginate($request, $paginator);
+        $tags = $tagRepository->paginate($request);
+        $search = new SearchField();
+        $searchForm = $this->createForm(SearchFieldType::class, $search, [
+            'choices' => SearchFieldType::tagChoices(),
+            'method'  => 'POST'
+        ]);
+
+        $searchForm->handleRequest($request);
+
+        if ($this->validateAndSubmittedForm($searchForm)) {
+            $query = $tagRepository->searchByFieldQuery($search->getField(), $search->getValue());
+            $tags = $tagRepository->paginate($request, $query);
+        }
 
         return $this->render(Path::ADMIN_PAGES . '/managers/tag/list.html.twig', [
-            'tags' => $tags
+            'tags'       => $tags,
+            'searchForm' => $searchForm->createView()
         ]);
     }
     public function create(Request $request): Response
