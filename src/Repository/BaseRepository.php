@@ -52,7 +52,7 @@ abstract class BaseRepository extends ServiceEntityRepository
     public function last(int $maxResults, string $field = 'createdAt')
     {
         return $this->createQueryBuilder($this->getAlias())
-            ->orderBy($this->getAlias() . '.' . $field, 'ASC')
+            ->orderBy($this->getAlias() . '.' . $field, 'DESC')
             ->setMaxResults($maxResults)
             ->getQuery()
             ->getResult();
