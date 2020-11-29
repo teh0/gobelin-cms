@@ -6,23 +6,37 @@ namespace App\Controller\Admin;
 
 use App\Controller\BaseController;
 use App\Entity\Category;
+use App\Entity\SearchField;
 use App\Form\CategoryEntityType;
+use App\Form\SearchFieldType;
 use App\Repository\CategoryRepository;
 use App\Utils\Constants\Path;
 use App\Utils\Constants\Route;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryManagerController extends BaseController
 {
-    public function index(CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(CategoryRepository $categoryRepository, Request $request): Response
     {
-        $categories = $categoryRepository->paginate($request, $paginator);
+        $categories = $categoryRepository->paginate($request);
+        $search = new SearchField();
+        $searchForm = $this->createForm(SearchFieldType::class, $search, [
+            'choices' => SearchFieldType::categoryChoices(),
+            'method'  => 'POST'
+        ]);
+
+        $searchForm->handleRequest($request);
+
+        if ($this->validateAndSubmittedForm($searchForm)) {
+            $query = $categoryRepository->searchByFieldQuery($search->getField(), $search->getValue());
+            $categories = $categoryRepository->paginate($request, $query);
+        }
 
         return $this->render(Path::ADMIN_PAGES . '/managers/category/list.html.twig', [
-            'categories' => $categories
+            'categories' => $categories,
+            'searchForm' => $searchForm->createView()
         ]);
     }
 
