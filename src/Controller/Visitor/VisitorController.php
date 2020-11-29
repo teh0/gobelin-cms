@@ -24,9 +24,9 @@ class VisitorController extends BaseController
         ]);
     }
 
-    public function posts(PageRepository $pageRepository, PaginatorInterface $paginator, Request $request): Response
+    public function posts(PageRepository $pageRepository, Request $request): Response
     {
-        $pages = $pageRepository->paginate($request, $paginator);
+        $pages = $pageRepository->paginate($request);
 
         return $this->render('pages/visitor/post/posts.html.twig', [
             'pages' => $pages
@@ -41,9 +41,9 @@ class VisitorController extends BaseController
         ]);
     }
 
-    public function categories(CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator)
+    public function categories(CategoryRepository $categoryRepository, Request $request)
     {
-        $categories = $categoryRepository->paginate($request, $paginator);
+        $categories = $categoryRepository->paginate($request);
 
         return $this->render('pages/visitor/category/categories.html.twig', [
             'categories' => $categories
