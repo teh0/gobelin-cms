@@ -21,10 +21,10 @@ class UserFixtures extends BaseFixture
         for ($i = 1; $i <= self::TOTAL_NUMBER_USERS; $i++) {
             $user = new User();
             $user->setEmail("user$i@mail.com");
-            $user->setName($this->faker->name);
-            $user->setPseudo($this->faker->userName);
-            $user->setPseudo($this->faker->userName);
-            $user->setPassword($this->encoder->encodePassword($user, self::USER_PASSWORD));
+            $user->setName($this->fixtureGenerator->getFaker()->name);
+            $user->setPseudo($this->fixtureGenerator->getFaker()->userName);
+            $user->setPseudo($this->fixtureGenerator->getFaker()->userName);
+            $user->setPassword($this->fixtureGenerator->getEncoder()->encodePassword($user, self::USER_PASSWORD));
             $user->addRole($this->userRole($user));
             $user->setIsVerified(true);
             $this->addReference(self::PREFIX_REFERENCE . "-$i", $user);

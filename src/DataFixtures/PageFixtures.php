@@ -18,10 +18,10 @@ class PageFixtures extends BaseFixture implements DependentFixtureInterface
     {
         for ($i = 1; $i <= self::TOTAL_NUMBER_PAGES; $i++) {
             $page = new Page();
-            $page->setTitle($this->faker->word);
-            $page->setContent($this->faker->randomHtml(8,8));
+            $page->setTitle($this->fixtureGenerator->getFaker()->word);
+            $page->setContent($this->fixtureGenerator->getFaker()->randomHtml(8,8));
             $page->setAuthor($this->getReference(UserFixtures::PREFIX_REFERENCE . '-1'));
-            $page->setDescription($this->faker->text);
+            $page->setDescription($this->fixtureGenerator->getFaker()->text);
             $this->setCategories($page);
             $this->setTags($page);
             $this->addReference(self::PREFIX_REFERENCE . "-$i", $page);
@@ -45,7 +45,7 @@ class PageFixtures extends BaseFixture implements DependentFixtureInterface
 
     private function setCategories(Page $page): void
     {
-        $categoryReferences = $this->getRandomRelationReferences(
+        $categoryReferences = $this->fixtureGenerator->getRandomRelationReferences(
             CategoryFixtures::PREFIX_REFERENCE,
             CategoryFixtures::TOTAL_NUMBER_CATEGORIES,
             self::NUMBER_CATEGORY_BY_PAGE
@@ -58,7 +58,7 @@ class PageFixtures extends BaseFixture implements DependentFixtureInterface
 
     private function setTags(Page $page): void
     {
-        $tagReferences = $this->getRandomRelationReferences(
+        $tagReferences = $this->fixtureGenerator->getRandomRelationReferences(
             TagFixtures::PREFIX_REFERENCE,
             TagFixtures::TOTAL_NUMBER_TAGS,
             self::NUMBER_TAG_BY_PAGE

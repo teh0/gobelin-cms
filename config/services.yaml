@@ -32,3 +32,4 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Repository\Services\ServiceRepositoryInterface: '@App\Repository\Services\ServiceRepository'
+    App\DataFixtures\Services\DataFixtures\Services\FixtureGeneratorInterface: '@App\DataFixtures\Services\DataFixtures\Services\FixtureGenerator'
