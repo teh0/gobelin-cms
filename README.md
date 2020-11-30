@@ -25,6 +25,7 @@ de lire, modifier créer et supprimer.
 * [x] Refacto du système de routing de l'application en séparation de plusieurs fichiers relatif à une partie spécifique
 de l'application. (adaptation du Kernel).
 * [x] Création d'un ExceptionHandler perso pour gérer les exceptions et les redirections en cas d'erreurs.
+* [x] Création d'un event subscriber pour redistribuer les exceptions du site à l'ExceptionHandler.
 * [x] Intégration du bundle ckeditor pour générer un editeur WYSIWYG dans la partie manager admin.
 * [x] Intégration du bundle vich uploader pour gérer l'upload de fichier.
 * [x] Intégration d'une librairie JS pour améliorer l'affichage des selects multiples des formulaires de managers admin.
@@ -32,8 +33,11 @@ de l'application. (adaptation du Kernel).
 * [x] Création de service pour les fixtures et les repositories. Injection de dépendances via les interfaces.
 * [x] Utilisation de webpack Encore pour la compilation des assets front
 * [x] Mise en place d'une architecture de layout twig pour la partie publique et admin du site.
+* [x] Mise en place d'une pagination pour toutes nos listes d'entités dans les dashboards admin et sur la partie publique.
+* [x] Créations d'entités Doctrine (prise en charge des relations entre elles).
+* [x] Créations de formulaires imbriqués pour chaque entité créée.
 
 # Mot de la fin
-- Nous avons essayer de soigner au mieux le code et de respecter les bonnes pratiques de codes (nommages factorisations ...).
+- Nous avons essayé de soigner au mieux le code et de respecter les bonnes pratiques de codes (nommages factorisations ...).
 - Un peu frustré de ne pas avoir pu faire plus de features que nous nous sommes fixées (pas mal de travail pendant les semaines d'entreprises).
 - On a découvert bcp de nouvelles choses qui nous serviront pour la suite ! C'était top merci.
