@@ -4,6 +4,7 @@
 namespace App\DataFixtures;
 
 
+use App\DataFixtures\Services\FixtureGeneratorInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Factory;
 use Faker\Generator;
@@ -12,32 +13,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 abstract class BaseFixture extends Fixture
 {
     /**
-     * @var Generator
+     * @var FixtureGeneratorInterface
      */
-    protected $faker;
+    protected $fixtureGenerator;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    protected $encoder;
-
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(FixtureGeneratorInterface $fixtureGenerator)
     {
-        $this->faker = Factory::create();
-        $this->encoder = $encoder;
-    }
 
-    protected function getRandomRelationReferences(string $prefixReference, int $totalReference, int $quantity)
-    {
-        $relationReferences = [];
-        $rangeIndex = range(1, $totalReference);
-        shuffle($rangeIndex);
-        $referenceIndex = array_slice($rangeIndex, 0, $quantity);
-
-        foreach ($referenceIndex as $index) {
-            $relationReferences[] = $prefixReference . "-$index";
-        }
-
-        return $relationReferences;
+        $this->fixtureGenerator = $fixtureGenerator;
     }
 }

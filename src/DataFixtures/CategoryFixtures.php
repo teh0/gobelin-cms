@@ -14,7 +14,7 @@ class CategoryFixtures extends BaseFixture
     {
         for ($i = 1; $i <= self::TOTAL_NUMBER_CATEGORIES; $i++) {
             $category = new Category();
-            $category->setName($this->faker->word);
+            $category->setName($this->fixtureGenerator->getFaker()->word);
             $this->addReference(self::PREFIX_REFERENCE . "-$i", $category);
             $manager->persist($category);
         }

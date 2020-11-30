@@ -14,8 +14,8 @@ class TagFixtures extends BaseFixture
     {
         for ($i = 1; $i <= self::TOTAL_NUMBER_TAGS; $i++) {
             $tag = new Tag();
-            $tag->setName($this->faker->word);
-            $tag->setColor($this->faker->hexColor);
+            $tag->setName($this->fixtureGenerator->getFaker()->word);
+            $tag->setColor($this->fixtureGenerator->getFaker()->hexColor);
             $this->addReference(self::PREFIX_REFERENCE . "-$i", $tag);
             $manager->persist($tag);
         }
