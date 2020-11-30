@@ -36,6 +36,7 @@ de l'application. (adaptation du Kernel).
 * [x] Mise en place d'une pagination pour toutes nos listes d'entités dans les dashboards admin et sur la partie publique.
 * [x] Créations d'entités Doctrine (prise en charge des relations entre elles).
 * [x] Créations de formulaires imbriqués pour chaque entité créée.
+* [x] Création d'une searchbar par champs spécifique assez scalable qui peut se coupler n'importe qu'elle entité.
 
 # Mot de la fin
 - Nous avons essayé de soigner au mieux le code et de respecter les bonnes pratiques de codes (nommages factorisations ...).
